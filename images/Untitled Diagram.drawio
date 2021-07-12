@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-07-12T07:07:54.727Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" etag="DrU7TLlhLFzwdEkI8hir" version="14.7.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-07-12T07:09:25.991Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" etag="CR2ej-pkkvRG1gOqzzqS" version="14.7.9" type="github">
   <diagram name="Page-1" id="e7e014a7-5840-1c2e-5031-d8a46d1fe8dd">
     <mxGraphModel dx="1422" dy="705" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
       <root>
@@ -7,7 +7,7 @@
         <mxCell id="2" value="Thiết bị" style="swimlane;whiteSpace=wrap;fontSize=16;" parent="1" vertex="1">
           <mxGeometry x="164.5" y="128" width="210.5" height="608" as="geometry" />
         </mxCell>
-        <mxCell id="683eZ9qalTY0pSp2afNf-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" parent="2" target="683eZ9qalTY0pSp2afNf-45" edge="1">
+        <mxCell id="683eZ9qalTY0pSp2afNf-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" parent="2" source="hlLAi3Z9fi5InJY6w7Bs-19" target="683eZ9qalTY0pSp2afNf-45" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="115" y="70" as="sourcePoint" />
           </mxGeometry>
@@ -47,7 +47,7 @@
         <mxCell id="3" value="Adapter" style="swimlane;whiteSpace=wrap;fontSize=16;" parent="1" vertex="1">
           <mxGeometry x="375" y="128" width="351" height="609" as="geometry" />
         </mxCell>
-        <mxCell id="683eZ9qalTY0pSp2afNf-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=16;" parent="3" target="683eZ9qalTY0pSp2afNf-50" edge="1">
+        <mxCell id="683eZ9qalTY0pSp2afNf-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=16;" parent="3" source="hlLAi3Z9fi5InJY6w7Bs-20" target="683eZ9qalTY0pSp2afNf-50" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="100" y="70" as="sourcePoint" />
           </mxGeometry>
