@@ -7,7 +7,7 @@ metadata:
 data:
   ADAPTER_MQTT_PORT: "1881"
 
-  MAINFLUX_HOST: "mqtt://host.docker.internal:1883"
+  MQTT_HOST: "mqtt://host.docker.internal:1883"
 
   USER_NAME_DEFAULT: "2f732718-802b-4d46-97ba-2a47dce22fb5"
   PASSWORD_DEFAULT: "01eb9309-a9f0-1040-9681-fd79e5ecd395"

@@ -1,7 +1,7 @@
 module.exports = {
-  adapterMqttSport: process.env.ADAPTER_MQTT_PORT,
+  adapterMqttport: process.env.ADAPTER_MQTT_PORT,
 
-  mainfluxHost: process.env.MAINFLUX_HOST,
+  mqttHost: process.env.MQTT_HOST,
 
   defaultUserName: process.env.USER_NAME_DEFAULT,
   defaultPassword: process.env.PASSWORD_DEFAULT,

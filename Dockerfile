@@ -2,7 +2,7 @@ FROM node:14-alpine
 
 ENV ADAPTER_MQTT_PORT=1881
 
-ENV MAINFLUX_HOST="mqtt://host.docker.internal:1883"
+ENV MQTT_HOST="mqtt://host.docker.internal:1883"
 
 ENV USER_NAME_DEFAULT="394d1824-e86d-429a-9213-be9b10a82f3b"
 ENV PASSWORD_DEFAULT="c46e7735-d5dc-4346-aa00-21177795b008"

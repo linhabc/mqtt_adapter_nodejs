@@ -1,7 +1,7 @@
 var mqtt = require("mqtt");
 var aedes = require("./aedes.js");
 var {
-  mainfluxHost,
+  mqttHost,
   defaultUserName,
   defaultPassword,
   defaultChannel,
@@ -23,7 +23,7 @@ class Client {
       clean: true,
       encoding: "utf8",
     };
-    this.client = mqtt.connect(mainfluxHost, options);
+    this.client = mqtt.connect(mqttHost, options);
 
     this.client.on("connect", function () {
       self.client.subscribe(self.clientConfig.channel + "/#");

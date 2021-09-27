@@ -4,7 +4,7 @@ var server = require("net").createServer(aedes.handle);
 var Client = require("./ClientClass.js");
 var { setKeyAndValue, getValueByKey } = require("./db.js");
 
-var { adapterMqttSport } = require("./config/config.js");
+var { adapterMqttport } = require("./config/config.js");
 
 var {
   defaultUserName,
@@ -91,6 +91,6 @@ aedes.on("clientError", function (client, err) {
   console.log("client error: ", client.id, err.message, err.stack);
 });
 
-server.listen(adapterMqttSport, function () {
-  console.log("server listening on port", adapterMqttSport);
+server.listen(adapterMqttport, function () {
+  console.log("server listening on port", adapterMqttport);
 });
