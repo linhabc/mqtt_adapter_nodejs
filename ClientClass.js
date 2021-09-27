@@ -26,51 +26,54 @@ class Client {
     this.client = mqtt.connect(mqttHost, options);
 
     this.client.on("connect", function () {
-      self.client.subscribe(self.clientConfig.channel + "/#");
+      // self.client.subscribe(self.clientConfig.channel + "/#");
+      self.client.subscribe(self.clientConfig.channel);
 
       // self.client.publish(self.clientConfig.channel, "Hello from client A");
 
-      console.log("Client A connected to mainflux");
+      console.log("[VERNEMQ] Client connected to vernemq");
     });
 
     this.client.on("disconnect", function (packet) {
       if (packet) {
-        console.log("clientDisconnect: ", packet.payload.toString());
+        console.log("[VERNEMQ] clientDisconnect: ", packet.payload.toString());
       }
     });
 
     this.client.on("message", function (topic, message, packet) {
       if (topic) {
-        console.log("topic on message: ", topic.toString());
+        console.log("[VERNEMQ] topic on message: ", topic.toString());
       }
       if (message) {
-        console.log("message on message: ", message.toString());
+        console.log("[VERNEMQ] message on message: ", message.toString());
       }
 
-      const channelClient =
-        self.clientConfig.channel + self.clientConfig.channelClient;
-      console.log("channelCLient: " + channelClient);
-      if (packet && topic === channelClient) {
-        console.log("Publish message to device: ", packet.payload.toString());
-        aedes.publish({
-          cmd: "publish",
-          qos: 0,
-          topic: self.clientConfig.channelClient,
-          payload: packet.payload,
-          retain: false,
-        });
+      const channel = self.clientConfig.channel;
+      console.log("[VERNEMQ] channel: " + channel);
+      if (packet && topic === channel) {
+        console.log(
+          "[VERNEMQ] Publish message to device: ",
+          packet.payload.toString()
+        );
+        // aedes.publish({
+        //   cmd: "publish",
+        //   qos: 0,
+        //   topic: channel,
+        //   payload: packet.payload,
+        //   retain: false,
+        // });
       }
     });
 
     this.client.on("packetreceive", function (packet) {
       if (packet) {
-        console.log("packetreceive: ", packet);
+        // console.log("packetreceive: ", packet);
       }
     });
   }
 
   publishMessage(packet) {
-    this.client.publish(this.clientConfig.channelSending, packet.payload);
+    this.client.publish(this.clientConfig.channel, packet.payload);
   }
 
   disconnectClient() {
