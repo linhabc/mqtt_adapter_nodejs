@@ -50,18 +50,59 @@ class Client {
 
       const channel = self.clientConfig.channel;
       console.log("[VERNEMQ] channel: " + channel);
-      if (packet && topic === channel) {
-        console.log(
-          "[VERNEMQ] Publish message to device: ",
-          packet.payload.toString()
-        );
-        // aedes.publish({
-        //   cmd: "publish",
-        //   qos: 0,
-        //   topic: channel,
-        //   payload: packet.payload,
-        //   retain: false,
-        // });
+      // if (packet && topic === channel) {
+      //   console.log(
+      //     "[VERNEMQ] Publish message to device: ",
+      //     packet.payload.toString()
+      //   );
+      //   aedes.publish({
+      //     cmd: "publish",
+      //     qos: 0,
+      //     topic: channel,
+      //     payload: packet.payload,
+      //     retain: false,
+      //   });
+      // }
+      aedes.publish({
+        cmd: "publish",
+        qos: 0,
+        topic: channel,
+        payload: packet.payload,
+        retain: false,
+      });
+    });
+
+    this.client.on("packetreceive", function (packet) {
+      if (packet) {
+        // console.log("packetreceive: ", packet);
+      }
+    });
+  }
+
+  createClientWithoutMessageListener() {
+    var self = this;
+    var options = {
+      clientId: this.clientConfig.clientId,
+      username: this.clientConfig.username,
+      password: this.clientConfig.password,
+      reconnectPeriod: 1000,
+      clean: true,
+      encoding: "utf8",
+    };
+    this.client = mqtt.connect(mqttHost, options);
+
+    this.client.on("connect", function () {
+      // self.client.subscribe(self.clientConfig.channel + "/#");
+      self.client.subscribe(self.clientConfig.channel);
+
+      // self.client.publish(self.clientConfig.channel, "Hello from client A");
+
+      console.log("[VERNEMQ] Client connected to vernemq");
+    });
+
+    this.client.on("disconnect", function (packet) {
+      if (packet) {
+        console.log("[VERNEMQ] clientDisconnect: ", packet.payload.toString());
       }
     });
 
@@ -73,6 +114,7 @@ class Client {
   }
 
   publishMessage(packet) {
+    console.log("[VERNEMQ] publishMessage: ", packet.payload);
     this.client.publish(this.clientConfig.channel, packet.payload);
   }
 

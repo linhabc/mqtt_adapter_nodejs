@@ -27,6 +27,14 @@ var {
 
 let clientSet = {};
 
+let newClient = new Client({
+  clientId: "defaultClient",
+  username: defaultUserName,
+  password: defaultPassword,
+  channel: defaultChannel,
+});
+newClient.createClient();
+
 aedes.on("client", async (client) => {
   console.log("[MQTT_NODE] Client: " + client.id + " connected to mqtt_node");
   // moi khi co mot ket noi moi den adapter -> tao mot client de ket noi den vernemq
@@ -38,8 +46,9 @@ aedes.on("client", async (client) => {
       channel: defaultChannel,
     };
 
-    let newClient = new Client(clientConfig);
-    newClient.createClient();
+    newClient = new Client(clientConfig);
+
+    newClient.createClientWithoutMessageListener();
     clientSet[client.id] = newClient;
   } else {
     console.log("[MQTT_NODE] Client with id: " + client.id + " already exist");
