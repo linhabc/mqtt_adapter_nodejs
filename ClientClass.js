@@ -47,29 +47,24 @@ class Client {
       if (message) {
         console.log("[VERNEMQ] message on message: ", message.toString());
       }
+      if (packet) {
+        console.log("[VERNEMQ] message on message: ", JSON.stringify(packet));
+      }
 
-      const channel = self.clientConfig.channel;
-      console.log("[VERNEMQ] channel: " + channel);
+      console.log("[VERNEMQ] channel: " + topic);
       // if (packet && topic === channel) {
       //   console.log(
       //     "[VERNEMQ] Publish message to device: ",
       //     packet.payload.toString()
       //   );
-      //   aedes.publish({
-      //     cmd: "publish",
-      //     qos: 0,
-      //     topic: channel,
-      //     payload: packet.payload,
-      //     retain: false,
-      //   });
-      // }
       aedes.publish({
         cmd: "publish",
         qos: 0,
-        topic: channel,
+        topic: "/channel" + topic,
         payload: packet.payload,
         retain: false,
       });
+      // }
     });
 
     this.client.on("packetreceive", function (packet) {
@@ -113,9 +108,9 @@ class Client {
     });
   }
 
-  publishMessage(packet) {
+  publishMessage(topic, packet) {
     console.log("[VERNEMQ] publishMessage: ", packet.payload);
-    this.client.publish(this.clientConfig.channel, packet.payload);
+    this.client.publish(topic, packet.payload);
   }
 
   disconnectClient() {

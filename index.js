@@ -27,13 +27,13 @@ var {
 
 let clientSet = {};
 
-let newClient = new Client({
-  clientId: "defaultClient",
+let defaultClient = new Client({
+  clientId: "client.id",
   username: defaultUserName,
   password: defaultPassword,
   channel: defaultChannel,
 });
-newClient.createClient();
+defaultClient.createClient();
 
 aedes.on("client", async (client) => {
   console.log("[MQTT_NODE] Client: " + client.id + " connected to mqtt_node");
@@ -46,9 +46,8 @@ aedes.on("client", async (client) => {
       channel: defaultChannel,
     };
 
-    newClient = new Client(clientConfig);
-
-    newClient.createClientWithoutMessageListener();
+    let newClient = new Client(clientConfig);
+    newClient.createClient();
     clientSet[client.id] = newClient;
   } else {
     console.log("[MQTT_NODE] Client with id: " + client.id + " already exist");
@@ -59,22 +58,27 @@ aedes.on("client", async (client) => {
 aedes.on("publish", function (packet, client) {
   if (client) {
     console.log(
-      "[MQTT_NODE] message from " +
-        client.id +
-        " : " +
-        packet.payload.toString()
+      "[MQTT_NODE] message from " + client.id + " : " + JSON.stringify(packet)
     );
 
     // forward to Mainflux
-    clientSet[client.id].publishMessage(packet);
+    // defaultClient.client.on("message", function (topic, message, packet) {});
+    console.log("object: " + packet.topic.substring(8, packet.topic.length));
+    defaultClient.publishMessage(
+      packet.topic.substring(8, packet.topic.length),
+      packet
+    );
   }
 });
 
 aedes.on("subscribe", function (subscriptions, client) {
   if (client) {
-    clientSet[client.id].clientConfig.channel = subscriptions[0].topic;
+    defaultClient.clientConfig.channel = subscriptions[0].topic;
 
-    console.log(clientSet[client.id]);
+    // console.log(clientSet[client.id]);
+    defaultClient.client.subscribe(
+      subscriptions[0].topic.substring(8, subscriptions[0].topic.length)
+    );
     console.log(
       "[MQTT_NODE] subscribe from client: ",
       subscriptions,
