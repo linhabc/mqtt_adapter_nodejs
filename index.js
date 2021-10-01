@@ -27,13 +27,13 @@ var {
 
 let clientSet = {};
 
-let defaultClient = new Client({
+let clientDefault = new Client({
   clientId: "client.id",
   username: defaultUserName,
   password: defaultPassword,
   channel: defaultChannel,
 });
-defaultClient.createClient();
+clientDefault.createClient();
 
 aedes.on("client", async (client) => {
   console.log("[MQTT_NODE] Client: " + client.id + " connected to mqtt_node");
@@ -62,23 +62,18 @@ aedes.on("publish", function (packet, client) {
     );
 
     // forward to Mainflux
-    // defaultClient.client.on("message", function (topic, message, packet) {});
-    console.log("object: " + packet.topic.substring(8, packet.topic.length));
-    defaultClient.publishMessage(
-      packet.topic.substring(8, packet.topic.length),
-      packet
-    );
+    // clientDefault.client.on("message", function (topic, message, packet) {});
+    console.log("object: " + packet.topic);
+    clientDefault.publishMessage(packet.topic + "/client", packet);
   }
 });
 
 aedes.on("subscribe", function (subscriptions, client) {
   if (client) {
-    defaultClient.clientConfig.channel = subscriptions[0].topic;
+    clientDefault.clientConfig.channel = subscriptions[0].topic;
 
     // console.log(clientSet[client.id]);
-    defaultClient.client.subscribe(
-      subscriptions[0].topic.substring(8, subscriptions[0].topic.length)
-    );
+    clientDefault.client.subscribe(subscriptions[0].topic);
     console.log(
       "[MQTT_NODE] subscribe from client: ",
       subscriptions,

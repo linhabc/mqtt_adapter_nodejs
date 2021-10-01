@@ -57,48 +57,16 @@ class Client {
       //     "[VERNEMQ] Publish message to device: ",
       //     packet.payload.toString()
       //   );
-      aedes.publish({
-        cmd: "publish",
-        qos: 0,
-        topic: "/channel" + topic,
-        payload: packet.payload,
-        retain: false,
-      });
+
+      if (!topic.includes("/client"))
+        aedes.publish({
+          cmd: "publish",
+          qos: 0,
+          topic: topic,
+          payload: packet.payload,
+          retain: false,
+        });
       // }
-    });
-
-    this.client.on("packetreceive", function (packet) {
-      if (packet) {
-        // console.log("packetreceive: ", packet);
-      }
-    });
-  }
-
-  createClientWithoutMessageListener() {
-    var self = this;
-    var options = {
-      clientId: this.clientConfig.clientId,
-      username: this.clientConfig.username,
-      password: this.clientConfig.password,
-      reconnectPeriod: 1000,
-      clean: true,
-      encoding: "utf8",
-    };
-    this.client = mqtt.connect(mqttHost, options);
-
-    this.client.on("connect", function () {
-      // self.client.subscribe(self.clientConfig.channel + "/#");
-      self.client.subscribe(self.clientConfig.channel);
-
-      // self.client.publish(self.clientConfig.channel, "Hello from client A");
-
-      console.log("[VERNEMQ] Client connected to vernemq");
-    });
-
-    this.client.on("disconnect", function (packet) {
-      if (packet) {
-        console.log("[VERNEMQ] clientDisconnect: ", packet.payload.toString());
-      }
     });
 
     this.client.on("packetreceive", function (packet) {
