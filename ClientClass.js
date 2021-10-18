@@ -2,6 +2,7 @@ var mqtt = require("mqtt");
 var aedes = require("./aedes.js");
 var {
   mqttHost,
+  channelReceiveDefault,
   defaultUserName,
   defaultPassword,
   defaultChannel,
@@ -58,14 +59,15 @@ class Client {
       //     packet.payload.toString()
       //   );
 
-      if (!topic.includes("/client"))
-        aedes.publish({
-          cmd: "publish",
-          qos: 0,
-          topic: topic,
-          payload: packet.payload,
-          retain: false,
-        });
+      // if (topic.includes("/b/"))
+
+      aedes.publish({
+        cmd: "publish",
+        qos: 0,
+        topic: topic,
+        payload: packet.payload,
+        retain: false,
+      });
       // }
     });
 

@@ -4,7 +4,7 @@ var server = require("net").createServer(aedes.handle);
 var Client = require("./ClientClass.js");
 // var { setKeyAndValue, getValueByKey } = require("./db.js");
 
-var { adapterMqttport } = require("./config/config.js");
+var { adapterMqttport, channelReceiveDefault } = require("./config/config.js");
 
 var {
   defaultUserName,
@@ -46,9 +46,9 @@ aedes.on("client", async (client) => {
       channel: defaultChannel,
     };
 
-    let newClient = new Client(clientConfig);
-    newClient.createClient();
-    clientSet[client.id] = newClient;
+    // let newClient = new Client(clientConfig);
+    // newClient.createClient();
+    // clientSet[client.id] = newClient;
   } else {
     console.log("[MQTT_NODE] Client with id: " + client.id + " already exist");
   }
@@ -64,7 +64,7 @@ aedes.on("publish", function (packet, client) {
     // forward to Mainflux
     // clientDefault.client.on("message", function (topic, message, packet) {});
     console.log("object: " + packet.topic);
-    clientDefault.publishMessage(packet.topic + "/client", packet);
+    clientDefault.publishMessage(channelReceiveDefault + packet.topic, packet);
   }
 });
 
@@ -73,6 +73,8 @@ aedes.on("subscribe", function (subscriptions, client) {
     clientDefault.clientConfig.channel = subscriptions[0].topic;
 
     // console.log(clientSet[client.id]);
+    // console.log(channelReceiveDefault + subscriptions[0].topic);
+
     clientDefault.client.subscribe(subscriptions[0].topic);
     console.log(
       "[MQTT_NODE] subscribe from client: ",
