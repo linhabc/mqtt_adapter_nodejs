@@ -1,4 +1,4 @@
-# Tạo file môi trường env.list:
+# Tạo file môi trường env.list(thay đổi giá trị cho phù hợp):
 
 ADAPTER_MQTT_PORT=1881
 
