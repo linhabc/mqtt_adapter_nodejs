@@ -12,11 +12,11 @@ CHANNEL_DEFAULT=/h/2
 
 CHANNEL_RECEIVE_DEFAULT=/channels/v2/
 
-# Run cmd
+# Cài đặt và chạy:
 
 docker run --expose 1881 -p 1881:1881 --env-file ./env.list linhnln/mqtt_adpter_nodejs:latest
 
-# Sử dụng
+# Sử dụng:
 
 1. Client bên ngoài subcribe topic /h/2 và gửi message đến /h/2
    ![1](./images/1.png)
